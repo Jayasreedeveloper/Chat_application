@@ -43,4 +43,4 @@ userSchema.pre("save",async function(next){
 });
 
 const User =mpngoose.model("users",userSchema);
-expport default User;
+export default User;
