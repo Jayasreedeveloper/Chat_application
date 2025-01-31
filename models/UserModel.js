@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import{gensalt,hash} from "bcrypt";
-
-const userSchema = new nongoose.Schema({
+import gensalt from "bcrypt";
+import { hash } from "bcrypt";
+const userSchema = new mongoose.Schema({
     email:{
         type:String,
         required: [true, "Email is Required."],
@@ -42,5 +42,5 @@ userSchema.pre("save",async function(next){
     next();
 });
 
-const User =mpngoose.model("users",userSchema);
+const User =mongoose.model("users",userSchema);
 export default User;
