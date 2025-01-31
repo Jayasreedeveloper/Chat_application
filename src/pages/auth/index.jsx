@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import {toast} from "sonner";
 import {apiClient} from "@/lib/api-client";
 import {SIGNUP_ROUTE} from "@/utils/constant";
+import { LOGIN_ROUTE } from '@/utils/constant';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '@/store';
 
@@ -124,7 +125,7 @@ const Auth = () => {
               onChange={e => setEmail(e.target.value)}
               />
 
-<Input
+            <Input
               placeholder="Password"
               type="Password"
               className="rounded-full p-6"
@@ -133,7 +134,7 @@ const Auth = () => {
               />
 
 
-<Input
+             <Input
               placeholder="Confirm Password"
               type="Password"
               className="rounded-full p-6"

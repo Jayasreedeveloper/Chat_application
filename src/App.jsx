@@ -7,6 +7,9 @@ import Profile from './pages/profile';
 import { useAppStore } from './store';
 import { apiClient } from './lib/api-client';
 
+const GET_USER_INFO = "/api/user-info"; // Replace with actual API route
+
+
 const PrivateRoute = ({children}) => {
   const {userInfo} = useAppStore();
   const isAuthenticated = !!userInfo;
@@ -21,7 +24,7 @@ const AuthRoute = ({ children }) => {
 
 const App = () => {
   const { userInfo, setUserInfo} = useAppStore();
-  const { loading, setLoading} = useState(true);
+  const [ loading, setLoading] = useState(true);
 
    useEffect (() =>{
     const getUserData = async () => {
@@ -34,6 +37,7 @@ const App = () => {
         }
         console.log({response});
       }catch (error) {
+        console.error("Error fetching user info:", error);
         setUserInfo(undefined);
       }finally{
         setLoading(false);
