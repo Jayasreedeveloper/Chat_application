@@ -1,5 +1,6 @@
 import Lottie from "react-lottie"
 import React from 'react'
+import { animationDefaultOptions } from "@/lib/utils";
 
 const EmptyChatContainer = () => {
   return (
@@ -9,8 +10,13 @@ const EmptyChatContainer = () => {
        isClickToPauseDisabled={true}
        height={200}
        width={200}
-       options={}
+       options={animationDefaultOptions}
        />
+       <div className="text-opacity-80 text-white flex flex-col gap-5 items-center mt-10 lg:text-4xl text-3xl transition-all duration-300 text-center">
+        <h3 className="poppins-medium">
+          Hi <span className="text-pruplr-500"></span>Welcome to 
+        </h3>
+       </div>
        </div>
   );
 };
