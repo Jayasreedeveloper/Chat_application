@@ -1,5 +1,6 @@
 import User from"../models/UserModel.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 const maxAge= 3*24*60*60*1000;
 
 const createToken=(email,userId)=>{
@@ -27,7 +28,7 @@ export const signup = async (request,response,next) =>{
      id:user.id,
      email:user.email,
      firstName:user.firstName,
-     lastName:user.image,
+     lastName:user.lastName,
      profileSetup:user.profileSetup,
       },
     });
@@ -44,11 +45,11 @@ export const signup = async (request,response,next) =>{
     if(!email || !password){
         return response.status(400).send("Email and password is required")
     }
-    const user=await User.findOne({email,password});
+    const user=await User.findOne({email});
     if(!user){
         return response.status(404).send("User with the given email is not found. ");
     }
-    const auth= await compare(password,user.password);
+    const auth= await bcrypt.compare(password,user.password);
     if(!auth){
         return response.status(400).send("Password is incorrect.");
     }
@@ -78,20 +79,22 @@ export const signup = async (request,response,next) =>{
 };
 export const getUserInfo = async (request,response,next) =>{
     try{
-    
-    // return response.status(200).json({ 
-    // user:{
-    //  id:user.id,
-    //  email:user.email,
-    //  firstName:user.firstName,
-    //  lastName:user.image,
-    //  profileSetup:user.profileSetup,
-    //  firstName:user.firstName,
-    //  lastName:user.lastName,
-    //  image:user.image,
-    //  color:user.color,
-    //   },
-    // });
+    console.log(request,userId);
+    if(!userData){
+        return response.status(404).send("User with the given email not found.");
+
+    }
+    return response.status(200).json({ 
+    user:{
+     id:userData.id,
+     email:userData.email,
+     profileSetup:userData.profileSetup,
+     firstName:userData.firstName,
+     lastName:userData.lastName,
+     image:userData.image,
+     color:userData.color,
+      },
+    });
     }catch(error){
         console.log({error});
         return response.status(500).send("Internal Server Error");
