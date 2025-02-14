@@ -1,14 +1,20 @@
-import{Router} from"express";
+import { Router } from "express";
 
-import{signup} from"../controllers/AuthController.js";
-import { login } from "../controllers/AuthController.js";
-import { getUserInfo } from "../controllers/AuthController.js";
+import { signup, login, getUserInfo, updateProfile, addProfileImage, removeProfileImage, logout } from "../controllers/AuthController.js";
 import { verifyToken } from "../middlewares/AuthMiddlewware.js";
+import multer from "multer";
 
-const authRoutes=Router();
 
-authRoutes.post("/signup",signup);
-authRoutes.post("/login",login);
-authRoutes.get("/user-info",verifyToken,getUserInfo);
+const authRoutes = Router();
+const upload = multer({dest: "uploads/profiles/"});
+
+
+authRoutes.post("/signup", signup);
+authRoutes.post("/login", login);
+authRoutes.get("/user-info", verifyToken, getUserInfo);
+authRoutes.post("/update-profile", verifyToken, updateProfile);
+authRoutes.post("/add-profile-image", verifyToken, upload.single("profile-image"), addProfileImage);
+authRoutes.delete("/remove-profile-image",verifyToken, removeProfileImage);
+authRoutes.post("/logout",logout);
 
 export default authRoutes;
