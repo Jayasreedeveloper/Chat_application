@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Message from "./MessagesModel";
+import Message from "./MessagesModel.js";
 
 const channelSchema = new mongoose.Schema({
     name:{
